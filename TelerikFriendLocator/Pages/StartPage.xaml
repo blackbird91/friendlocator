@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -30,7 +31,8 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Maps:Map ZoomLevel="13"  CopyrightVisibility="Collapsed" ZoomBarVisibility="Visible" Center="44.5,26.1"  CredentialsProvider="Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA" />
+         
+            <maps:Map Grid.Row="1" x:Name="map"  CartographicMode="Road" LandmarksEnabled="True"  PedestrianFeaturesEnabled="True" WatermarkMode="on" Loaded="Map_OnLoaded" />
         </Grid>
         <Button Grid.Row="2" HorizontalAlignment="Right" BorderThickness="0" x:Name="btnSettings" Click="BtnSettings_OnClick">
             <Image Source="../Images/settingsButton.png"></Image>

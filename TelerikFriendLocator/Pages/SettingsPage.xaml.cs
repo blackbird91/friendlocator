@@ -16,12 +16,25 @@ namespace TelerikFriendLocator.Pages
     public partial class SettingsPage : PhoneApplicationPage
     {
 
-       
-        private SettingsViewModel _ViewModel = new SettingsViewModel();
+
+        private SettingsViewModel _ViewModel;
 
         public SettingsPage()
         {
             InitializeComponent();
+
+            GetUser();
+        }
+
+        private async void GetUser()
+        {
+
+            string facebookId = App.serviceClient.CurrentUser.UserId.Split(':')[1];
+
+            var userTable = App.serviceClient.GetTable<User>();
+            var currentUser = await userTable.Where(u => u.FacebookId == facebookId).ToListAsync();
+
+            _ViewModel = new SettingsViewModel(currentUser[0]);
 
             LayoutRoot.DataContext = _ViewModel;
         }
@@ -45,11 +58,10 @@ namespace TelerikFriendLocator.Pages
             var userTable = App.serviceClient.GetTable<User>();
             var currentUser = await userTable.Where(u => u.FacebookId == facebookId).ToListAsync();
 
-            currentUser[0].Range = (decimal)sliderRange.Value;
+            currentUser[0].Range = (int)sliderRange.Value;
             currentUser[0].Visible = switchControl.IsChecked;
 
             await userTable.UpdateAsync(currentUser[0]);
         }
-
     }
 }

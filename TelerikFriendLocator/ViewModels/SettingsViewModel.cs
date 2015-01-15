@@ -6,11 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Telerik.Windows.Controls;
+using TelerikFriendLocator.Wrappers;
 
 namespace TelerikFriendLocator.ViewModels
 {
     class SettingsViewModel : ViewModelBase,INotifyPropertyChanged
     {
+        private User _loggedInUser;
+        public SettingsViewModel(User user)
+        {
+            _loggedInUser = user;
+
+            if (user != null)
+            {
+                IsUserVisible = user.Visible;
+                RangeValue = user.Range < 200 ? 200 : (double)user.Range;
+            }
+        }
+
         private bool _isUserVisible = false;
         public bool IsUserVisible
         {

@@ -1,25 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Device.Location;
+using System.IO.IsolatedStorage;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Newtonsoft.Json;
-using System.IO.IsolatedStorage;
+using Microsoft.Phone.Maps;
+using Microsoft.Phone.Maps.Controls;
 using TelerikFriendLocator.Managers;
+using TelerikFriendLocator.Utilities;
+using TelerikFriendLocator.Wrappers;
 
 namespace TelerikFriendLocator.Pages
 {
-
     public partial class StartPage : PhoneApplicationPage
     {
+        private readonly GeoCoordinateWatcher man;
+
         public StartPage()
         {
             InitializeComponent();
+            man = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
+            GeneralManager.Instance.SetMap(map);
+
+            man.StatusChanged += loc_StatusChanged;
+        }
+
+        private void loc_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
+        {
+            if (e.Status == GeoPositionStatus.Ready)
+            {
+                if (!IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
+                {
+                    GeneralManager.Instance.SetCoordinates();
+                }
+            }
         }
 
         public async void CallApi()
@@ -29,31 +48,30 @@ namespace TelerikFriendLocator.Pages
                 var result =
                     await
                         App.serviceClient.InvokeApiAsync("getfacebookfriends", HttpMethod.Get,
-                            new Dictionary<string, string>()
+                            new Dictionary<string, string>
                             {
                                 {"facebookId", App.serviceClient.CurrentUser.UserId}
                             });
             }
             catch (Exception e)
             {
-
             }
-
         }
+
+
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            
-            CallApi();
 
+            CallApi();
             if (!IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
-            
+
             {
-                MessageBoxResult result =
+                var result =
                     MessageBox.Show("This app accesses your phone's location. Is that ok?",
-                    "Location",
-                    MessageBoxButton.OKCancel);
+                        "Location",
+                        MessageBoxButton.OKCancel);
 
                 if (result == MessageBoxResult.OK)
                 {
@@ -66,17 +84,25 @@ namespace TelerikFriendLocator.Pages
 
                 IsolatedStorageSettings.ApplicationSettings.Save();
 
-                PositionManager.Instance.SetCoordinates();
+                GeneralManager.Instance.SetCoordinates();
             }
             else
             {
-                PositionManager.Instance.SetCoordinates();
+                GeneralManager.Instance.SetCoordinates();
             }
         }
 
         private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
+        }
+
+
+        private void Map_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            MapsSettings.ApplicationContext.ApplicationId = "FriendLocator";
+            MapsSettings.ApplicationContext.AuthenticationToken =
+                "Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA";
         }
     }
 }
