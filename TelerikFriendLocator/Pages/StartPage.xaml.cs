@@ -67,12 +67,16 @@ namespace TelerikFriendLocator.Pages
                 IsolatedStorageSettings.ApplicationSettings.Save();
 
                 PositionManager.Instance.SetCoordinates();
-                //CallApi();
             }
             else
             {
                 PositionManager.Instance.SetCoordinates();
             }
+        }
+
+        private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Pages/SettingsPage.xaml", UriKind.RelativeOrAbsolute));
         }
     }
 }

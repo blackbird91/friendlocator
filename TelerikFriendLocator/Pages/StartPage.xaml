@@ -18,18 +18,23 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0.15*"/>
+
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="Friend Locator" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="View your friends" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle2Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Maps:Map ZoomLevel="13"  CopyrightVisibility="Collapsed" ZoomBarVisibility="Visible" Center="44.5,26.1"  CredentialsProvider="Ata6VjOFfYyG5vV9BHXJ45lDFLtbY9JLPHd45guVOSDbwdFstgQZKXHRDypQaMVA" />
         </Grid>
+        <Button Grid.Row="2" HorizontalAlignment="Right" BorderThickness="0" x:Name="btnSettings" Click="BtnSettings_OnClick">
+            <Image Source="../Images/settingsButton.png"></Image>
+        </Button>
     </Grid>
 
 </phone:PhoneApplicationPage>
