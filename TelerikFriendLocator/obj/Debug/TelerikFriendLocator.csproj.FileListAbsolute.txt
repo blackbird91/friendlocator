@@ -86,3 +86,4 @@ C:\Users\Vlad\documents\visual studio 2013\Projects\TelerikFriendLocator\Telerik
 C:\Users\Vlad\documents\visual studio 2013\Projects\TelerikFriendLocator\TelerikFriendLocator\obj\Debug\Pages\StartPage.g.cs
 C:\Users\Vlad\documents\visual studio 2013\Projects\TelerikFriendLocator\TelerikFriendLocator\obj\Debug\Pages\SettingsPage.g.cs
 C:\Users\Vlad\documents\visual studio 2013\Projects\TelerikFriendLocator\TelerikFriendLocator\obj\Debug\ToggleSwitchControl.g.cs
+C:\Users\Vlad\documents\visual studio 2013\Projects\TelerikFriendLocator\TelerikFriendLocator\obj\Debug\Messages.g.cs

@@ -27,6 +27,7 @@ namespace TelerikFriendLocator.Pages
             InitializeComponent();
             man = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
             GeneralManager.Instance.SetMap(map);
+            GeneralManager.Instance.SetPage(this);
 
             man.StatusChanged += loc_StatusChanged;
         }

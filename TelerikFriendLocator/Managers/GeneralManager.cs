@@ -17,15 +17,21 @@ using TelerikFriendLocator.Utilities;
 using System.Threading;
 using System.Windows.Threading;
 using System.Net.Http;
+using System.Windows.Input;
 using Newtonsoft.Json;
+using System.Windows.Navigation;
 
 namespace TelerikFriendLocator.Managers
 {
     public class GeneralManager
     {
 
+        public Page CurrentPage;
         public User LoggedInUser;
         public Map Map;
+
+        public User  Person2;
+
         public static readonly GeneralManager Instance = new GeneralManager();
 
         public GeneralManager()
@@ -51,6 +57,11 @@ namespace TelerikFriendLocator.Managers
         public void SetMap(Map map)
         {
             Map = map;
+        }
+
+        public void SetPage(Page page)
+        {
+            CurrentPage = page;
         }
         public async void SetCoordinates()
         {
@@ -100,22 +111,31 @@ namespace TelerikFriendLocator.Managers
             }
         }
 
-        public void AddImageToMap(Map map,string facebookId,double latitude, double longitude, Uri imageUri, bool withEvent = false)
+        public void AddImageToMap(Map map,User user, bool withEvent = false)
         {
             var mapIcon = new Image();
-            mapIcon.Source = new BitmapImage(imageUri);
-            mapIcon.Name = facebookId;
-            mapIcon.Width = 50;
-            mapIcon.Height = 50;
+            mapIcon.Source = new BitmapImage(new Uri(user.PictureUrl));
+            mapIcon.Name = user.FacebookId;
+            mapIcon.Width = 75;
+            mapIcon.Height = 75;
 
             MapLayer layer = new MapLayer();
             MapOverlay overlay = new MapOverlay();
 
+            if(withEvent)
+                mapIcon.Tap += ((sender, e) => mapIcon_Tap(sender, e, user)); 
+
             layer.Add(overlay);
 
-            overlay.GeoCoordinate = new GeoCoordinate(latitude, longitude);
+            overlay.GeoCoordinate = new GeoCoordinate((double)user.Latitude, (double) user.Longitude);
             overlay.Content = mapIcon;
             map.Layers.Add(layer);
+        }
+
+        private void mapIcon_Tap(object sender, System.Windows.Input.GestureEventArgs e,User user)
+        {
+            Person2 = user;
+            CurrentPage.NavigationService.Navigate(new Uri("/Messages.xaml", UriKind.RelativeOrAbsolute));
         }
 
         public async void GetUser(bool callDrawing = false)
@@ -203,7 +223,7 @@ namespace TelerikFriendLocator.Managers
 
                 foreach (var friend in friendsInRange.FriendsInRange)
                 {
-                    GeneralManager.Instance.AddImageToMap(Map,friend.FacebookId,(double)friend.Latitude,(double)friend.Longitude,new Uri(friend.PictureUrl),true);
+                    GeneralManager.Instance.AddImageToMap(Map, friend, true);
                 }
 
             }
