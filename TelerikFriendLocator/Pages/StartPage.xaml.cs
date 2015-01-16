@@ -23,6 +23,7 @@ namespace TelerikFriendLocator.Pages
 
         public StartPage()
         {
+            GeneralManager.Instance.InsertTestData();
             InitializeComponent();
             man = new GeoCoordinateWatcher(GeoPositionAccuracy.High);
             GeneralManager.Instance.SetMap(map);
@@ -41,7 +42,7 @@ namespace TelerikFriendLocator.Pages
             }
         }
 
-        public async void CallApi()
+        public async void CallFbApi()
         {
             try
             {
@@ -58,15 +59,14 @@ namespace TelerikFriendLocator.Pages
             }
         }
 
-
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+      protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            CallApi();
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
+            GeneralManager.Instance.GetUser();
 
+            CallFbApi();
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("LocationConsent"))
             {
                 var result =
                     MessageBox.Show("This app accesses your phone's location. Is that ok?",

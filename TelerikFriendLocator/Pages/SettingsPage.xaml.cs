@@ -9,32 +9,20 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using TelerikFriendLocator.Wrappers;
 using System.ComponentModel;
+using TelerikFriendLocator.Managers;
 using TelerikFriendLocator.ViewModels;
 
 namespace TelerikFriendLocator.Pages
 {
     public partial class SettingsPage : PhoneApplicationPage
     {
-
-
         private SettingsViewModel _ViewModel;
 
         public SettingsPage()
         {
             InitializeComponent();
 
-            GetUser();
-        }
-
-        private async void GetUser()
-        {
-
-            string facebookId = App.serviceClient.CurrentUser.UserId.Split(':')[1];
-
-            var userTable = App.serviceClient.GetTable<User>();
-            var currentUser = await userTable.Where(u => u.FacebookId == facebookId).ToListAsync();
-
-            _ViewModel = new SettingsViewModel(currentUser[0]);
+            _ViewModel = new SettingsViewModel(GeneralManager.Instance.LoggedInUser);
 
             LayoutRoot.DataContext = _ViewModel;
         }

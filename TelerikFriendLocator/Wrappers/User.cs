@@ -12,6 +12,11 @@ namespace TelerikFriendLocator.Wrappers
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
+        [JsonProperty(PropertyName = "lastname")]
+        public string Lastname { get; set; }
+        [JsonProperty(PropertyName = "firstname")]
+        public string Firstname { get; set; }
+
         [JsonProperty(PropertyName = "facebookid")]
         public string FacebookId { get; set; }
 

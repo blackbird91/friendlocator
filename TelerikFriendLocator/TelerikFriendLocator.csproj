@@ -102,7 +102,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Managers\PositionManager.cs" />
+    <Compile Include="Managers\GeneralManager.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -121,6 +121,7 @@
     <Compile Include="Utilities\PositionUtility.cs" />
     <Compile Include="ViewModels\CommandSampleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Wrappers\ResponseWrapper.cs" />
     <Compile Include="Wrappers\User.cs" />
   </ItemGroup>
   <ItemGroup>
