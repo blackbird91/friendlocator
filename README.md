@@ -1,0 +1,2 @@
+# friendlocator
+Proiect Cloud Computing
