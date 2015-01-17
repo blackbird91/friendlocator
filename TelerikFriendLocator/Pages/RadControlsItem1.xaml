@@ -1,0 +1,229 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="TelerikFriendLocator.Pages.RadControlsItem1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikData="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikPrimitivesNamespace="clr-namespace:Telerik.Windows.Controls.Primitives;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:telerikTextBox="clr-namespace:Telerik.Windows.Controls.PhoneTextBox;assembly=Telerik.Windows.Controls.Primitives"
+    xmlns:viewModels="clr-namespace:TelerikFriendLocator.Pages.ViewModels"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="728" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
+    
+    <UserControl.DataContext>
+        <viewModels:MessagesViewModel/>
+    </UserControl.DataContext>
+    
+    <UserControl.Resources>
+        <DataTemplate x:Key="IncomingMessageTemplate">
+            <Grid Margin="12,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=FormattedTimeStamp}"
+                                       Margin="0, 0, 0, 0"
+                                       HorizontalAlignment="Right"
+                                       Foreground="{StaticResource PhoneSubtleBrush}"/>
+
+                    <telerikPrimitivesNamespace:RadPointerContentControl Background="{StaticResource PhoneAccentBrush}"
+                                                                                     TargetPoint="-141,-100">
+                        <telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+                            <DataTemplate>
+                                <Polygon Width="14"
+                                         Height="28"
+                                         Points="0,14 0,28 14,14"
+                                         StrokeThickness="0"
+                                         Fill="{StaticResource PhoneAccentBrush}"
+                                         RenderTransformOrigin="0.5, 0.5">
+                                    <Polygon.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="-1"/>
+                                            <TranslateTransform Y="-2"/>
+                                        </TransformGroup>
+                                    </Polygon.RenderTransform>
+                                </Polygon>
+                            </DataTemplate>
+                        </telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+
+                        <TextBlock Text="{Binding Path=Text}" MinHeight="54"
+                                           TextWrapping="Wrap" Foreground="White"
+                                           Margin="8, 2, 8, 6"/>
+
+                    </telerikPrimitivesNamespace:RadPointerContentControl>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="OutgoingMessageTemplate">
+            <Grid Margin="12,6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Path=FormattedTimeStamp}"
+                                       Margin="0, 0, 0, 0"
+                                       HorizontalAlignment="Left"
+                                       Foreground="{StaticResource PhoneSubtleBrush}"/>
+
+                    <telerikPrimitivesNamespace:RadPointerContentControl 
+                                                                 TargetPoint="145, -100">
+                        <telerikPrimitivesNamespace:RadPointerContentControl.Background>
+                            <SolidColorBrush Color="{StaticResource PhoneAccentColor}" Opacity="0.5"/>
+                        </telerikPrimitivesNamespace:RadPointerContentControl.Background>
+                        <telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+                            <DataTemplate>
+                                <Polygon Width="14"
+                                         Height="28"
+                                         Points="0,14 0,28 14,14"
+                                         StrokeThickness="0">
+                                    <Polygon.RenderTransform>
+                                        <TransformGroup>
+                                            <TranslateTransform Y="-2"/>
+                                        </TransformGroup>
+                                    </Polygon.RenderTransform>
+                                    <Polygon.Fill>
+                                        <SolidColorBrush Color="{StaticResource PhoneAccentColor}" Opacity="0.5"/>
+                                    </Polygon.Fill>
+                                </Polygon>
+                            </DataTemplate>
+                        </telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Text}" MinHeight="54"
+                                               TextWrapping="Wrap" Foreground="White"
+                                               Margin="8, 2, 8, 6"/>
+
+                        </StackPanel>
+                    </telerikPrimitivesNamespace:RadPointerContentControl>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="TextBoxTemplate">
+            <Grid Margin="0, 74, 0, 12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <telerikPrimitivesNamespace:RadPointerContentControl Grid.ColumnSpan="2"
+                                                             TargetPoint="199, -100">
+                    <telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+                        <DataTemplate>
+                            <Polygon Width="14"
+                                     Height="28"
+                                     Points="0,14 0,28 14,14"
+                                     StrokeThickness="0">
+                                <Polygon.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform Y="-17"/>
+                                    </TransformGroup>
+                                </Polygon.RenderTransform>
+                            </Polygon>
+                        </DataTemplate>
+                    </telerikPrimitivesNamespace:RadPointerContentControl.PointerTemplate>
+
+                    <telerikPrimitives:RadTextBox x:Name="PART_TextBox"
+                                                          Watermark="type a message"
+                                                          Margin="0,-5,0,20"
+                                                          AcceptsReturn="True"
+                                                          ActionButtonVisibility="Visible">
+                        <telerikPrimitives:RadTextBox.ActionButtonStyle>
+                            <Style TargetType="telerikTextBox:TextBoxActionButton">
+                                <Setter Property="ButtonType"
+                                                Value="Custom"/>
+                                <Setter Property="RestStateImageSource"
+                                                Value="Images/SendIcon.png"/>
+                            </Style>
+                        </telerikPrimitives:RadTextBox.ActionButtonStyle>
+                    </telerikPrimitives:RadTextBox>
+                </telerikPrimitivesNamespace:RadPointerContentControl>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="APP TITLE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="page title" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Margin="24,6">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid DataContext="{Binding ConversationBuddy}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="{Binding Picture}" Width="62" Height="62"/>
+                    <TextBlock Grid.Column="1" Text="{Binding Name}" 
+                       Margin="12, -6, 0, 12"
+                       VerticalAlignment="Top"
+                       FontSize="{StaticResource PhoneFontSizeNormal}"
+                       FontWeight="Black"/>
+                </Grid>
+
+                <Grid Grid.Column="1" DataContext="{Binding You}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}"
+                       HorizontalAlignment="Right"
+                       Margin="0, -6, 12, 12"
+                       FontSize="{StaticResource PhoneFontSizeNormal}"
+                       FontWeight="Black"
+                       VerticalAlignment="Top"/>
+                    <Image Grid.Column="1" Source="{Binding Picture}" Width="62" Height="62"/>
+                </Grid>
+
+            </Grid>
+
+            <telerikData:RadConversationView Grid.Row="1" 
+                                             ItemsSource="{Binding Messages}"
+                                             x:Name="conversationView" TextBoxTemplate="{StaticResource TextBoxTemplate}"
+                                             Margin="12, 0" IncomingMessageTemplate="{StaticResource IncomingMessageTemplate}" OutgoingMessageTemplate="{StaticResource OutgoingMessageTemplate}"
+                                             SendingMessage="OnSendingMessage" />
+        </Grid>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button3.png" Text="Button 3"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button4.png" Text="Button 4"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
